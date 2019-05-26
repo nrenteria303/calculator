@@ -24,35 +24,43 @@ negate.addEventListener('click', function() {
 });
 
 function numberTrigger(key) {
-  if (!oprClicked) {
-    if (firstNum === 0) { 
-      firstNum = key;
-    } else if (firstNum !== '0') {
-        if (key === '.' && firstNum.includes('.')) {
-          return;
-      } else {
-        firstNum += key;      
-      }
-    }
-    screen.innerHTML = firstNum;
-    } else {
-      if (secondNum === 0) {
-        secondNum = key;
-        } else if (firstNum !== '0') {
-          if (key === '.' && secondNum.includes('.')) {
-            return;
+    if (!oprClicked) {
+        if (firstNum === 0) { 
+            firstNum = key;
         } else {
-          secondNum += key;      
+            if (key === '.' && firstNum.includes('.')) {
+                return;
+            } else {
+                firstNum += key;      
+            }
         }
-      }    	
-      screen.innerHTML = secondNum;
+        screen.innerHTML = firstNum;
+    } else {
+        if (secondNum === 0) {
+            secondNum = key;
+        } else {
+            if (key === '.' && secondNum.includes('.')) {
+                return;
+            } else {
+                secondNum += key;      
+            }
+        }    	
+        screen.innerHTML = secondNum;
     }
 }
 
 function oprClickHelp(opr) {
-    oprClicked = true;
-    secondNum = 0;
-    activeOpr = opr;
+    if (!oprClicked) {
+        oprClicked = true;
+        secondNum = 0;
+        activeOpr = opr;
+    } else {
+        total();
+        secondNum = 0;
+        oprClicked = true;
+        activeOpr = opr;
+    }
+
 }
 
 function total() {
