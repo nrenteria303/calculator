@@ -12,6 +12,17 @@ const equals = document.getElementById('equ');
 
 screen.innerHTML = firstNum;
 
+negate.addEventListener('click', function() {
+    if (!oprClicked) {
+        firstNum *= -1;
+        screen.innerHTML = firstNum;
+    } else {
+        secondNum *= -1;
+        screen.innerHTML = secondNum;
+    }
+    return;
+});
+
 function numberTrigger(key) {
   if (!oprClicked) {
     if (firstNum === 0) { 
@@ -39,72 +50,72 @@ function numberTrigger(key) {
 }
 
 function oprClickHelp(opr) {
-	oprClicked = true;
-  secondNum = 0;
-  activeOpr = opr;
+    oprClicked = true;
+    secondNum = 0;
+    activeOpr = opr;
 }
 
 function total() {
-  firstNum = parseFloat(firstNum);
-	switch (activeOpr) {
-  	case add:
-      firstNum += parseFloat(secondNum);
-      break;
-  	case sub:
-      firstNum -= parseFloat(secondNum);
-      break;  
-  	case mul:
-      firstNum *= parseFloat(secondNum);
-      break;
-  	case div:
-      firstNum /= parseFloat(secondNum);
-      break;
-    default:
-    	return;
-  }
-  oprClicked = false;
-  screen.innerHTML = firstNum;
+    firstNum = parseFloat(firstNum);
+        switch (activeOpr) {
+        case add:
+        firstNum += parseFloat(secondNum);
+        break;
+        case sub:
+        firstNum -= parseFloat(secondNum);
+        break;  
+        case mul:
+        firstNum *= parseFloat(secondNum);
+        break;
+        case div:
+        firstNum /= parseFloat(secondNum);
+        break;
+        default:
+            return;
+    }
+    oprClicked = false;
+    screen.innerHTML = firstNum;
 }
 
 function clearOut() {
-  firstNum = 0;
-  secondNum = 0;
-  oprClicked = false;
-  activeOpr = '';
-  screen.innerHTML = firstNum;
+    firstNum = 0;
+    secondNum = 0;
+    oprClicked = false;
+    activeOpr = '';
+    screen.innerHTML = firstNum;
 }
 
 for (var i = 0; i < numberBtns.length; i++) {
-  numberBtns[i].addEventListener('click', function() {
-		numberTrigger(this.innerHTML);
-  });
+    numberBtns[i].addEventListener('click', function() {
+        numberTrigger(this.innerHTML);
+    });
 }
 
 document.addEventListener('keydown', function(e) {
-	if (numbers.includes(e.key)) {
+    if (numbers.includes(e.key)) {
 		numberTrigger(e.key);
-  } else if (e.key == 'Enter') {
-	  total();
-  } else if (e.key == 'Backspace') {
-  	clearOut();
-  } else {
-  	switch (e.key) {
-    	case '+':
-      	oprClickHelp(add);
-        break;
-       case '-':
-       	oprClickHelp(sub);
-        break;
-       case '*':
-       	oprClickHelp(mul);
-        break;
-       case '/':
-       	oprClickHelp(div);
-        break;
-       default:
-       	return;
+    } else if (e.key == 'Enter') {
+        total();
+    } else if (e.key == 'Backspace') {
+        clearOut();
+    } else {
+        switch (e.key) {
+            case '+':
+            oprClickHelp(add);
+            break;
+        case '-':
+            oprClickHelp(sub);
+            break;
+        case '*':
+            oprClickHelp(mul);
+            break;
+        case '/':
+            oprClickHelp(div);
+            break;
+        default:
+            return;
+        }
     }
-  }
 });
 
 clear.addEventListener('click', function() {
@@ -117,12 +128,3 @@ mul.addEventListener('click', function() {oprClickHelp(mul);});
 div.addEventListener('click', function() {oprClickHelp(div);});
 equals.addEventListener('click', function() {total();});
 
-negate.addEventListener('click', function() {
-	if (!oprClicked) {
-  	firstNum *= -1;
-    screen.innerHTML = firstNum;
-  } else {
-  	secondNum *= -1;
-    screen.innerHTML = secondNum;
-  }
-});
